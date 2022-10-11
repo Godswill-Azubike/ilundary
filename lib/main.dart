@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int num1 = 0;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -18,7 +19,52 @@ class MyApp extends StatelessWidget {
           actions: const [Icon(Icons.add)],
         ),
         drawer: const Drawer(),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Numbers of Lundary $num1"),
+              ElevatedButton(
+                onPressed: () {
+                  // setState(() {});
+                  num1++;
+                  print("Numbers of Lundary $num1");
+                },
+                child: const Text("add lundary"),
+              ),
+              const AddLundary(),
+            ],
+          ),
+        ),
       ),
+    );
+  }
+}
+
+class AddLundary extends StatefulWidget {
+  const AddLundary({Key? key}) : super(key: key);
+
+  @override
+  State<AddLundary> createState() => _AddLundaryState();
+}
+
+class _AddLundaryState extends State<AddLundary> {
+  int num1 = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("Numbers of Lundary $num1"),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              num1++;
+            });
+            print("Numbers of Lundary $num1");
+          },
+          child: const Text("add lundary"),
+        )
+      ],
     );
   }
 }
