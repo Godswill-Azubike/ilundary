@@ -21,10 +21,12 @@ class MyApp extends StatelessWidget {
         drawer: const Drawer(),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("Lundary Statistics"),
-              LundaryData(),
+              Text(
+                "Counter",
+                style: TextStyle(fontSize: 39),
+              ),
+              AddCount(),
             ],
           ),
         ),

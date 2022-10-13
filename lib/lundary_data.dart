@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
 
-class LundaryData extends StatefulWidget {
-  const LundaryData({Key? key}) : super(key: key);
+class AddCount extends StatefulWidget {
+  const AddCount({Key? key}) : super(key: key);
 
   @override
-  State<LundaryData> createState() => _LundaryDataState();
+  State<AddCount> createState() => _AddCountState();
 }
 
-class _LundaryDataState extends State<LundaryData> {
-  int stock = 0;
-  addStock() {
+class _AddCountState extends State<AddCount> {
+  int counter = 10;
+  addCounter() {
     setState(() {
-      stock++;
+      counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.amber[200],
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Text("numbers of lundary in stock $stock"),
-            ElevatedButton(
-              onPressed: () {
-                addStock();
-              },
-              child: const Text("add stock"),
-            ),
-          ],
+    return Column(
+      children: [
+        Text(
+          "$counter",
+          style: const TextStyle(fontSize: 25.0),
         ),
-      ),
+        ElevatedButton(
+            onPressed: () {
+              addCounter();
+            },
+            child: const Text("add"))
+      ],
     );
   }
 }
