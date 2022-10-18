@@ -14,29 +14,57 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text("iLundary"),
-          actions: const [Icon(Icons.add)],
         ),
         drawer: const Drawer(),
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 35.0),
+          children: <Widget>[
+            const SizedBox(height: 20.5),
+            // first text widget
             const Center(
               child: Text(
                 "My Lundary Data",
-                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w900),
+                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w800, color: Colors.blue),
               ),
             ),
-            const YellowBg(),
+
+            // container widget that has a center widget inside
+            const MyOrder(),
+
+            // row widget that has two containers
             Row(
               children: const [
-                CompletedOrders(),
-                SizedBox(width: 25),
-                PendingOrders(),
+                SizedBox(width: 25.0),
+                StatData(
+                  textdata: "42 \nCompleted",
+                  customColor: Colors.purple,
+                ),
+                SizedBox(width: 25.0),
+                StatData(
+                  textdata: "20 \nPending",
+                  customColor: Colors.pink,
+                ),
               ],
             ),
-            const SizedBox(height: 30.0),
-            const CustomStack()
+
+            // stack widget that has a column containing container with center widget
+            Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  color: Colors.blue,
+                  padding: const EdgeInsets.all(25.0),
+                  margin: const EdgeInsets.only(left: 25.0, top: 30.0, right: 25.0),
+                  child: Column(
+                    children: const [
+                      // StatData(textdata: "Place Order", customColor: Colors.teal),
+                      StackBtn(customColor: Colors.teal, text: "Place Order"),
+                      SizedBox(height: 10.0),
+                      StackBtn(customColor: Colors.red, text: "Exit"),
+                    ],
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
@@ -44,108 +72,68 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class YellowBg extends StatelessWidget {
-  const YellowBg({Key? key}) : super(key: key);
+class MyOrder extends StatelessWidget {
+  const MyOrder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(30),
+      margin: const EdgeInsets.only(top: 30.0, left: 25.0, right: 25.0),
       height: 150.0,
-      color: Colors.lightBlueAccent,
-      child: const Center(
+      width: double.infinity,
+      color: Colors.blue,
+      child: Center(
         child: Text(
-          "My Orders",
-          style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w200),
-        ),
-      ),
-    );
-  }
-}
-
-class CompletedOrders extends StatelessWidget {
-  const CompletedOrders({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 0, left: 30),
-      height: 90.0,
-      width: MediaQuery.of(context).size.width / 2.5,
-      color: Colors.lightBlueAccent,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              "41 \n Completed",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w200),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class PendingOrders extends StatelessWidget {
-  const PendingOrders({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 0, right: 30),
-      height: 90.0,
-      width: MediaQuery.of(context).size.width / 2.5,
-      color: Colors.lightBlueAccent,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              "20 \n Pending",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w200),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomStack extends StatelessWidget {
-  const CustomStack({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-          padding: const EdgeInsets.all(30),
-          width: double.infinity,
-          color: Colors.lightBlueAccent,
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                color: Colors.greenAccent,
-                padding: const EdgeInsets.all(20),
-                child: const Center(child: Text("Place Order")),
-              ),
-              const SizedBox(height: 20.0),
-              Container(
-                width: double.infinity,
-                color: Colors.red,
-                padding: const EdgeInsets.all(20),
-                child: const Center(child: Text("Exit")),
-              ),
-            ],
+          "My Orders".toUpperCase(),
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 25.0,
           ),
-        )
-      ],
+        ),
+      ),
+    );
+  }
+}
+
+class StatData extends StatelessWidget {
+  const StatData({super.key, required this.textdata, required this.customColor});
+  final String textdata;
+  final Color customColor;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 175.0,
+      margin: const EdgeInsets.only(top: 30.0),
+      color: customColor,
+      child: Center(
+        child: Text(
+          textdata,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class StackBtn extends StatelessWidget {
+  const StackBtn({super.key, required this.customColor, required this.text});
+  final Color customColor;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      width: double.infinity,
+      color: customColor,
+      child: Center(
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
     );
   }
 }
